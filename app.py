@@ -205,7 +205,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                         if lat != 0 and lon != 0:
                             mapa = folium.Map(location=[lat, lon], zoom_start=16)
                             folium.Marker([lat, lon], popup=f"Registro {index}: {descripcion}").add_to(mapa)
-                            st_folium(mapa, width=700, height=400)
+                            st_folium(mapa, width=500, height=400)
                         
             st.markdown("---")                 
 
