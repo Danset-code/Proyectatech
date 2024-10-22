@@ -268,18 +268,18 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                 
             with cols[1]:
                 st.subheader(f"{titulo}")
-                st.write(f"  Precio: {precio} COP")
-                st.write(f"  Precio: {estrato} COP")
-                st.write(f"  Precio: {area} COP")
+                st.write(f"  **Precio:** {precio} COP")
+                st.write(f"  **Estrato:** {estrato} COP")
+                st.write(f"  **Area total:** {area} COP")
                 #st.markdown(f"<p style='font-size:21px;'><b>Precio: </b>{precio}</p>", unsafe_allow_html=True)
                 #st.markdown(f"<p style='font-size:21px;'><b>Estrato: </b>{estrato}</p>", unsafe_allow_html=True)
                 #st.markdown(f"<p style='font-size:21px;'><b>Area Privada: </b>{area}</p>", unsafe_allow_html=True)
                 if admin_price!= '[null]':
                     formateado = "{:,.0f}".format(int(admin_price)).replace(",", ".")
-                    st.write(f"  Precio: {formateado} COP")
+                    st.write(f"  **Precio Administracion:** {formateado} COP")
                     #st.markdown(f"<p style='font-size:21px;'><b>Precio administracion: </b>${formateado} COP</p>", unsafe_allow_html=True)
                 if bathrooms!= '[null]':
-                    st.write(f"  Precio: {bathrooms} COP")
+                    st.write(f"  **Precio:** {bathrooms} COP")
                     #st.markdown(f"<p style='font-size:21px;'><b>Baños: </b>{bathrooms}</p>", unsafe_allow_html=True)
             
             with cols[2]:
