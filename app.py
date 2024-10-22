@@ -360,8 +360,8 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                                         # Agregar un marcador para cada centro comercial
                                         folium.Marker([lat_punto, lon_punto], popup=nombre, icon=folium.Icon(color=color)).add_to(mapa)
 
-                        # Mostrar el mapa en Streamlit
-                        st_folium(mapa, width=500, height=400)
+                            # Mostrar el mapa en Streamlit
+                            st_folium(mapa, width=500, height=400)
 
                         # Convertir la lista a un DataFrame para visualización
                         df_puntos_interes = pd.DataFrame(puntos_interes_lista, columns=['Nombre', 'Latitud', 'Longitud', 'Etiqueta', 'Valor'])
