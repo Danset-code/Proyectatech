@@ -152,7 +152,7 @@ st.markdown("""
     </div>
     """, unsafe_allow_html=True)
 
-# Título de la aplicación
+# Título de la aplicación uno
 st.title("Buscar Local")
 
 st.write("Acá podrás encontrar las mejores ofertas para arrendar local, obtener información completa, al lugar y poder mirar la zona que mas te llame la atención, ten encuenta todos los aspectos para que asi puedas poyectar tus oportunidades de crecimiento como empresa y como emprendedor, puedes filtrar por la ubicacion")
@@ -162,16 +162,16 @@ st.write("Acá podrás encontrar las mejores ofertas para arrendar local, obtene
 def init_connection():
     try:
         conn = psycopg2.connect(
-            #host="autorack.proxy.rlwy.net",
-            #user="postgres",  # Cambia esto según tu configuración
-            #password="rJmaVfPPjUZARaPzwemDoMDvengICOrS",  # Cambia esto según tu configuración
-            #dbname="railway",
-            #port="33601"
-            host="localhost",
+            host="autorack.proxy.rlwy.net",
             user="postgres",  # Cambia esto según tu configuración
-            password="Danset01*",  # Cambia esto según tu configuración
-            dbname="hackaton",
-            port="5432"
+            password="rJmaVfPPjUZARaPzwemDoMDvengICOrS",  # Cambia esto según tu configuración
+            dbname="railway",
+            port="33601"
+            #host="localhost",
+            #user="postgres",  # Cambia esto según tu configuración
+            #password="Danset01*",  # Cambia esto según tu configuración
+            #dbname="hackaton",
+            #port="5432"
         )
         return conn
     except psycopg2.Error as e:
