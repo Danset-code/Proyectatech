@@ -273,7 +273,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                 st.markdown(f"<p style='font-size:21px;'><b>Estrato: </b>{estrato}</p>", unsafe_allow_html=True)
                 st.markdown(f"<p style='font-size:21px;'><b>Area Privada: </b>{area}</p>", unsafe_allow_html=True)
                 if admin_price!= '[null]':
-                    formateado = locale.format_string("%.0f", int(admin_price), grouping=True)
+                    formateado = "${:,.0f}".format(admin_price).replace(",", ".")
                     st.markdown(f"<p style='font-size:21px;'><b>Precio administracion: </b>${formateado} COP</p>", unsafe_allow_html=True)
                 if bathrooms!= '[null]':
                     st.markdown(f"<p style='font-size:21px;'><b>Baños: </b>{bathrooms}</p>", unsafe_allow_html=True)
@@ -350,7 +350,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                         # Convertir la lista a un DataFrame para visualización
                         df_puntos_interes = pd.DataFrame(puntos_interes_lista, columns=['Nombre', 'Latitud', 'Longitud', 'Etiqueta', 'Valor'])
                     
-                        excluir_etiquetas = ['footway', 'service', 'crossing', 'cycleway', 'tertiary', 'traffic_signals', 'turning_circle', 'trunk_link', 'steps','primary_link']
+                        excluir_etiquetas = ['footway', 'service', 'crossing', 'cycleway', 'tertiary', 'traffic_signals', 'turning_circle', 'trunk_link', 'steps','primary_link', 'pedestrian', 'secondary_link']
                         df_filtrado = df_puntos_interes[~df_puntos_interes['Valor'].isin(excluir_etiquetas)]
 
                 if lat != 0 and lon != 0:
