@@ -327,12 +327,22 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
 
                             # Procesar los resultados y extraer las etiquetas clave-valor solo para highway, amenity, y shop
                             for lugar in amenidades:
+                                # Extraer etiquetas clave-valor solo para 'highway', 'amenity', y 'shop'
+                                etiquetas = lugar.get('tags', {})
                                 nombre = lugar.get('nombre', 'Sin nombre')
                                 lat_punto = lugar.get('lat')
                                 lon_punto = lugar.get('lon')
                                 
-                                # Extraer etiquetas clave-valor solo para 'highway', 'amenity', y 'shop'
-                                etiquetas = lugar.get('tags', {})
+                                
+                                 # Definir un identificador único basado en las etiquetas que te interesan
+                                identificador = (nombre, frozenset(etiquetas.items())) # Usar frozenset para poder almacenar en el set
+                                
+                                # Si el identificador ya está en el conjunto, saltar este elemento para evitar duplicados
+                                if identificador in elementos_unicos:
+                                    continue
+                                
+                                # Si no es un duplicado, agregar el identificador al conjunto
+                                elementos_unicos.add(identificador)
                                 
                                 # Asignar un color basado en la etiqueta
                                 if 'amenity' in etiquetas:
@@ -346,7 +356,8 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                                 
                                 # Agregar a la lista de puntos de interés solo las etiquetas relevantes
                                 for clave, valor in etiquetas.items():
-                                    puntos_interes_lista.append([nombre, lat_punto, lon_punto, clave, valor])
+                                    if clave in ['amenity', 'highway', 'shop']:  # Solo incluir las etiquetas deseadas
+                                        puntos_interes_lista.append([nombre, lat_punto, lon_punto, clave, valor])
                                     
                                     if lat_punto and lon_punto:
                                         # Agregar un marcador para cada centro comercial
