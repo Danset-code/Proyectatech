@@ -310,7 +310,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                         # Luego en tu parte donde muestras el mapa
                         if lat != 0 and lon != 0:
                             # Definir el radio de búsqueda en metros
-                            radio_busqueda = 200  # Cambia esto según tus necesidades
+                            radio_busqueda = 150  # Cambia esto según tus necesidades
                             
                             amenidades = obtener_puntos_interes(lat, lon, radio=radio_busqueda)
                             
@@ -318,7 +318,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                             mapa = folium.Map(location=[lat, lon], zoom_start=18)
 
                             # Agregar el marcador para la propiedad
-                            folium.Marker([lat, lon], popup=f"Registro {index}: {titulo}", icon=folium.Icon(color='blue', icon='info-sign')).add_to(mapa)
+                            folium.Marker([lat, lon], popup=f"Registro {index}: {titulo}", icon=folium.Icon(color='blue', icon='user')).add_to(mapa)
                             
                             elementos_unicos = set()
 
@@ -329,9 +329,8 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                                 nombre = lugar.get('nombre').upper()
                                 lat_punto = lugar.get('lat')
                                 lon_punto = lugar.get('lon')
-                                
-                                print(etiquetas)
-                                 # Definir un identificador único basado en las etiquetas que te interesan
+
+                                # Definir un identificador único basado en las etiquetas que te interesan
                                 identificador = (nombre, frozenset(etiquetas.items())) # Usar frozenset para poder almacenar en el set
                                 
                                 # Si el identificador ya está en el conjunto, saltar este elemento para evitar duplicados
@@ -344,10 +343,13 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                                 # Asignar un color basado en la etiqueta
                                 if 'amenity' in etiquetas:
                                     color = 'green'  # Color para amenity
+                                    icon = 'info-sign'
                                 elif 'highway' in etiquetas:
                                     color = 'gray'  # Color para highway
+                                    icon = 'globe'
                                 elif 'shop' in etiquetas:
                                     color = 'orange'  # Color para shop
+                                    icon = 'shopping-cart'
                                 else:
                                     color = 'gray'  # Color predeterminado para otros casos
                                 
@@ -358,7 +360,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                                     
                                     if lat_punto and lon_punto:
                                         # Agregar un marcador para cada centro comercial
-                                        folium.Marker([lat_punto, lon_punto], popup=nombre, icon=folium.Icon(color=color)).add_to(mapa)
+                                        folium.Marker([lat_punto, lon_punto], popup=nombre, icon=folium.Icon(color=color, icon=icon)).add_to(mapa)
 
                             # Mostrar el mapa en Streamlit
                             st_folium(mapa, width=500, height=400)
