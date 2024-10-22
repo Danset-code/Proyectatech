@@ -261,7 +261,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                                                                                                     df_filtrado["bathrooms"], df_filtrado["sector"], df_filtrado["titulo"], df_filtrado["contact"],
                                                                                                     df_filtrado["id"]), start=1):
             imagenes_urls = obtener_imagenes(id_propiedad)
-            cols = st.columns([1, 1, 1])
+            cols = st.columns([1, 1, 0.5])
             
             with cols[0]:
                 mostrar_imagen_ajustada(imagen, max_alto=300)
