@@ -318,7 +318,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                             mapa = folium.Map(location=[lat, lon], zoom_start=18)
 
                             # Agregar el marcador para la propiedad
-                            folium.Marker([lat, lon], popup=f"Registro {index}: {titulo}", icon=folium.Icon(color='blue')).add_to(mapa)
+                            folium.Marker([lat, lon], popup=f"Registro {index}: {titulo}", icon=folium.Icon(color='blue', icon='info-sign')).add_to(mapa)
                             
                             elementos_unicos = set()
 
