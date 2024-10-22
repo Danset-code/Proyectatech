@@ -7,17 +7,10 @@ from PIL import Image
 import requests
 from io import BytesIO
 import base64
-import locale
-
-# Establecer el locale (en este caso, 'es_CO' para Colombia)
-try:
-    locale.setlocale(locale.LC_ALL, 'es_CO.UTF-8')
-except locale.Error:
-    print("Locale not supported")
+import requests
 
 st.set_page_config(layout="wide")
 
-import requests
 
 def obtener_puntos_interes(lat, lon, radio):
     # Construir la consulta Overpass
@@ -42,12 +35,16 @@ def obtener_puntos_interes(lat, lon, radio):
                 # Extraer solo las etiquetas highway, amenity y shop
                 etiquetas = {k: v for k, v in element['tags'].items() if k in ['highway', 'amenity', 'shop']}
                 
+                # Verifica si hay etiquetas relevantes
                 if etiquetas:  # Solo agregar si tiene alguna de estas etiquetas
-                    # Obtener el nombre del lugar, si existe
-                    nombre = element['tags'].get('name', 'Sin nombre')  # Verificar si existe la etiqueta 'name'
-                    
-                    # Depuración: Mostrar el nombre del lugar
-                    print(f"Nombre del lugar: {nombre}")  # Depuración
+                    # Verificar si el nodo es un bus_stop
+                    if etiquetas.get('highway') == 'bus_stop':
+                        nombre = element['tags'].get('name', 'Sin nombre')
+                    elif 'amenity' in etiquetas or 'shop' in etiquetas:
+                        # Obtener el nombre del lugar, si existe
+                        nombre = element['tags'].get('name', 'Sin nombre')
+                    else:
+                        continue  # Saltar si no es bus_stop, amenity o shop
                     
                     lugar = {
                         'nombre': nombre,  # Usar el nombre que se encuentre
@@ -165,16 +162,16 @@ st.write("Acá podrás encontrar las mejores ofertas para arrendar local, obtene
 def init_connection():
     try:
         conn = psycopg2.connect(
-            host="autorack.proxy.rlwy.net",
-            user="postgres",  # Cambia esto según tu configuración
-            password="rJmaVfPPjUZARaPzwemDoMDvengICOrS",  # Cambia esto según tu configuración
-            dbname="railway",
-            port="33601"
-            #host="localhost",
+            #host="autorack.proxy.rlwy.net",
             #user="postgres",  # Cambia esto según tu configuración
-            #password="Danset01*",  # Cambia esto según tu configuración
-            #dbname="hackaton",
-            #port="5432"
+            #password="rJmaVfPPjUZARaPzwemDoMDvengICOrS",  # Cambia esto según tu configuración
+            #dbname="railway",
+            #port="33601"
+            host="localhost",
+            user="postgres",  # Cambia esto según tu configuración
+            password="Danset01*",  # Cambia esto según tu configuración
+            dbname="hackaton",
+            port="5432"
         )
         return conn
     except psycopg2.Error as e:
@@ -313,7 +310,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                         # Luego en tu parte donde muestras el mapa
                         if lat != 0 and lon != 0:
                             # Definir el radio de búsqueda en metros
-                            radio_busqueda = 100  # Cambia esto según tus necesidades
+                            radio_busqueda = 200  # Cambia esto según tus necesidades
                             
                             amenidades = obtener_puntos_interes(lat, lon, radio=radio_busqueda)
                             
@@ -329,11 +326,11 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                             for lugar in amenidades:
                                 # Extraer etiquetas clave-valor solo para 'highway', 'amenity', y 'shop'
                                 etiquetas = lugar.get('tags', {})
-                                nombre = lugar.get('nombre', 'Sin nombre')
+                                nombre = lugar.get('nombre').upper()
                                 lat_punto = lugar.get('lat')
                                 lon_punto = lugar.get('lon')
                                 
-                                
+                                print(etiquetas)
                                  # Definir un identificador único basado en las etiquetas que te interesan
                                 identificador = (nombre, frozenset(etiquetas.items())) # Usar frozenset para poder almacenar en el set
                                 
@@ -363,14 +360,18 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                                         # Agregar un marcador para cada centro comercial
                                         folium.Marker([lat_punto, lon_punto], popup=nombre, icon=folium.Icon(color=color)).add_to(mapa)
 
-                            # Mostrar el mapa en Streamlit
-                            st_folium(mapa, width=500, height=400)
-                            
+                        # Mostrar el mapa en Streamlit
+                        st_folium(mapa, width=500, height=400)
+
                         # Convertir la lista a un DataFrame para visualización
                         df_puntos_interes = pd.DataFrame(puntos_interes_lista, columns=['Nombre', 'Latitud', 'Longitud', 'Etiqueta', 'Valor'])
+                        
+                        # Eliminar filas duplicadas en función de las columnas 'Nombre' y 'Valor'
+                        df_puntos_interes_unicos = df_puntos_interes.drop_duplicates(subset=['Nombre', 'Valor'])
                     
                         excluir_etiquetas = ['footway', 'service', 'crossing', 'cycleway', 'tertiary', 'traffic_signals', 'turning_circle', 'trunk_link', 'steps','primary_link', 'pedestrian', 'secondary_link']
                         df_filtrado = df_puntos_interes[~df_puntos_interes['Valor'].isin(excluir_etiquetas)]
+                        
 
                 if lat != 0 and lon != 0:
                     # Mostrar la tabla en Streamlit
