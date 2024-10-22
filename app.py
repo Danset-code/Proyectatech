@@ -275,7 +275,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                 #st.markdown(f"<p style='font-size:21px;'><b>Estrato: </b>{estrato}</p>", unsafe_allow_html=True)
                 #st.markdown(f"<p style='font-size:21px;'><b>Area Privada: </b>{area}</p>", unsafe_allow_html=True)
                 if admin_price!= '[null]':
-                    formateado = "{:,.0f}".format(int(admin_price)).replace(",", ".")
+                    formateado = "${:,.0f}".format(int(admin_price)).replace(",", ".")
                     st.write(f"  **Precio Administracion:** {formateado}")
                     #st.markdown(f"<p style='font-size:21px;'><b>Precio administracion: </b>${formateado} COP</p>", unsafe_allow_html=True)
                 if bathrooms!= '[null]':
@@ -318,10 +318,12 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                             amenidades = obtener_puntos_interes(lat, lon, radio=radio_busqueda)
                             
                             # Crear el mapa
-                            mapa = folium.Map(location=[lat, lon], zoom_start=17)
+                            mapa = folium.Map(location=[lat, lon], zoom_start=18)
 
                             # Agregar el marcador para la propiedad
                             folium.Marker([lat, lon], popup=f"Registro {index}: {titulo}", icon=folium.Icon(color='blue')).add_to(mapa)
+                            
+                            elementos_unicos = set()
 
                             # Procesar los resultados y extraer las etiquetas clave-valor solo para highway, amenity, y shop
                             for lugar in amenidades:
@@ -331,6 +333,16 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                                 
                                 # Extraer etiquetas clave-valor solo para 'highway', 'amenity', y 'shop'
                                 etiquetas = lugar.get('tags', {})
+                                
+                                # Definir un identificador único basado en las etiquetas que te interesan
+                                identificador = (nombre, etiquetas)
+    
+                                # Si el identificador ya está en el conjunto, saltar este elemento para evitar duplicados
+                                if identificador in elementos_unicos:
+                                    continue
+    
+                                # Si no es un duplicado, agregar el identificador al conjunto
+                                elementos_unicos.add(identificador)
                                 
                                 # Asignar un color basado en la etiqueta
                                 if 'amenity' in etiquetas:
