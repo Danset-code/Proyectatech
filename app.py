@@ -10,7 +10,6 @@ import base64
 import locale
 
 # Establecer el locale (en este caso, 'es_CO' para Colombia)
-locale.setlocale(locale.LC_ALL, 'es_CO.UTF-8')
 try:
     locale.setlocale(locale.LC_ALL, 'es_CO.UTF-8')
 except locale.Error:
