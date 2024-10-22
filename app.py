@@ -162,16 +162,16 @@ st.write("Acá podrás encontrar las mejores ofertas para arrendar local, obtene
 def init_connection():
     try:
         conn = psycopg2.connect(
-            #host="autorack.proxy.rlwy.net",
-            #user="postgres",  # Cambia esto según tu configuración
-            #password="rJmaVfPPjUZARaPzwemDoMDvengICOrS",  # Cambia esto según tu configuración
-            #dbname="railway",
-            #port="33601"
-            host="localhost",
+            host="autorack.proxy.rlwy.net",
             user="postgres",  # Cambia esto según tu configuración
-            password="Danset01*",  # Cambia esto según tu configuración
-            dbname="hackaton",
-            port="5432"
+            password="rJmaVfPPjUZARaPzwemDoMDvengICOrS",  # Cambia esto según tu configuración
+            dbname="railway",
+            port="33601"
+            #host="localhost",
+            #user="postgres",  # Cambia esto según tu configuración
+            #password="Danset01*",  # Cambia esto según tu configuración
+            #dbname="hackaton",
+            #port="5432"
         )
         return conn
     except psycopg2.Error as e:
