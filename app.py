@@ -334,16 +334,6 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                                 # Extraer etiquetas clave-valor solo para 'highway', 'amenity', y 'shop'
                                 etiquetas = lugar.get('tags', {})
                                 
-                                # Definir un identificador único basado en las etiquetas que te interesan
-                                identificador = (nombre, etiquetas)
-    
-                                # Si el identificador ya está en el conjunto, saltar este elemento para evitar duplicados
-                                if identificador in elementos_unicos:
-                                    continue
-    
-                                # Si no es un duplicado, agregar el identificador al conjunto
-                                elementos_unicos.add(identificador)
-                                
                                 # Asignar un color basado en la etiqueta
                                 if 'amenity' in etiquetas:
                                     color = 'green'  # Color para amenity
