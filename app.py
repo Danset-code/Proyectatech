@@ -346,18 +346,18 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
 
                             # Mostrar el mapa en Streamlit
                             st_folium(mapa, width=500, height=400)
-
-                    if lat != 0 and lon != 0:
+                            
                         # Convertir la lista a un DataFrame para visualización
                         df_puntos_interes = pd.DataFrame(puntos_interes_lista, columns=['Nombre', 'Latitud', 'Longitud', 'Etiqueta', 'Valor'])
                     
                         excluir_etiquetas = ['footway', 'service', 'crossing', 'cycleway', 'tertiary', 'traffic_signals', 'turning_circle', 'trunk_link', 'steps','primary_link']
                         df_filtrado = df_puntos_interes[~df_puntos_interes['Valor'].isin(excluir_etiquetas)]
 
-                # Mostrar la tabla en Streamlit
-                with st.expander("Ver puntos de interés cercanos"):
-                    st.write("Aquí tienes la lista de puntos de interés:")
-                    st.table(df_filtrado)  
+                if lat != 0 and lon != 0:
+                    # Mostrar la tabla en Streamlit
+                    with st.expander("Ver puntos de interés cercanos"):
+                        st.write("Aquí tienes la lista de puntos de interés:")
+                        st.table(df_filtrado)  
             st.markdown("---")            
 else:
     st.info("Selecciona un barrio para ver los datos correspondientes.")
