@@ -261,7 +261,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                                                                                                     df_filtrado["bathrooms"], df_filtrado["sector"], df_filtrado["titulo"], df_filtrado["contact"],
                                                                                                     df_filtrado["id"]), start=1):
             imagenes_urls = obtener_imagenes(id_propiedad)
-            cols = st.columns([1, 1, 0.5])
+            cols = st.columns([1, 2, 0.5])
             
             with cols[0]:
                 mostrar_imagen_ajustada(imagen, max_alto=300)
@@ -269,17 +269,17 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
             with cols[1]:
                 st.subheader(f"{titulo}")
                 st.write(f"  **Precio:** {precio} COP")
-                st.write(f"  **Estrato:** {estrato} COP")
-                st.write(f"  **Area total:** {area} COP")
+                st.write(f"  **Estrato:** {estrato}")
+                st.write(f"  **Area total:** {area}")
                 #st.markdown(f"<p style='font-size:21px;'><b>Precio: </b>{precio}</p>", unsafe_allow_html=True)
                 #st.markdown(f"<p style='font-size:21px;'><b>Estrato: </b>{estrato}</p>", unsafe_allow_html=True)
                 #st.markdown(f"<p style='font-size:21px;'><b>Area Privada: </b>{area}</p>", unsafe_allow_html=True)
                 if admin_price!= '[null]':
                     formateado = "{:,.0f}".format(int(admin_price)).replace(",", ".")
-                    st.write(f"  **Precio Administracion:** {formateado} COP")
+                    st.write(f"  **Precio Administracion:** {formateado}")
                     #st.markdown(f"<p style='font-size:21px;'><b>Precio administracion: </b>${formateado} COP</p>", unsafe_allow_html=True)
                 if bathrooms!= '[null]':
-                    st.write(f"  **Precio:** {bathrooms} COP")
+                    st.write(f"  **Precio:** {bathrooms}")
                     #st.markdown(f"<p style='font-size:21px;'><b>Baños: </b>{bathrooms}</p>", unsafe_allow_html=True)
             
             with cols[2]:
@@ -297,10 +297,12 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
             # Mostrar el expander si el estado es True
             if st.session_state.expanders[expander_key]:
                 with st.expander(f"Detalles de {titulo}", expanded=True):
-                    st.markdown(f"<p style='font-size:21px;'><b>Contacto:</b> {contact}</p>", unsafe_allow_html=True)
+                    st.write(f"  **Precio:** {contact} COP")
+                    #st.markdown(f"<p style='font-size:21px;'><b>Contacto:</b> {contact}</p>", unsafe_allow_html=True)
                     
                     if descripcion:
-                        st.markdown(f"<p style='font-size:18px;'><b>Descripción:</b> {descripcion}</p>", unsafe_allow_html=True)
+                        st.write(f"  **Descripcion:** {descripcion}")
+                        #st.markdown(f"<p style='font-size:18px;'><b>Descripción:</b> {descripcion}</p>", unsafe_allow_html=True)
                         
                     cols = st.columns([1, 1])
                     
@@ -316,7 +318,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                             amenidades = obtener_puntos_interes(lat, lon, radio=radio_busqueda)
                             
                             # Crear el mapa
-                            mapa = folium.Map(location=[lat, lon], zoom_start=16)
+                            mapa = folium.Map(location=[lat, lon], zoom_start=17)
 
                             # Agregar el marcador para la propiedad
                             folium.Marker([lat, lon], popup=f"Registro {index}: {titulo}", icon=folium.Icon(color='blue')).add_to(mapa)
