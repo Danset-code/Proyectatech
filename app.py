@@ -162,11 +162,18 @@ st.write("Acá podrás encontrar las mejores ofertas para arrendar local, obtene
 def init_connection():
     try:
         conn = psycopg2.connect(
-            host="autorack.proxy.rlwy.net",
-            user="postgres",  # Cambia esto según tu configuración
-            password="rJmaVfPPjUZARaPzwemDoMDvengICOrS",  # Cambia esto según tu configuración
-            dbname="railway",
-            port="33601"
+            #RAILWAY
+            #host="autorack.proxy.rlwy.net",
+            #user="postgres",  # Cambia esto según tu configuración
+            #password="rJmaVfPPjUZARaPzwemDoMDvengICOrS",  # Cambia esto según tu configuración
+            #dbname="railway",
+            #port="33601"
+            #SUPABASE
+            host="aws-0-sa-east-1.pooler.supabase.com",
+            user="postgres.vjlvcapbajjucqxyeaet",  # Cambia esto según tu configuración
+            password="Pureba123paratontos",  # Cambia esto según tu configuración
+            dbname="postgres",
+            port="6543"
             #host="localhost",
             #user="postgres",  # Cambia esto según tu configuración
             #password="Danset01*",  # Cambia esto según tu configuración
