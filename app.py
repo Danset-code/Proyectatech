@@ -157,26 +157,26 @@ st.title("Buscar Local")
 
 st.write("Acá podrás encontrar las mejores ofertas para arrendar local, obtener información completa, al lugar y poder mirar la zona que mas te llame la atención, ten encuenta todos los aspectos para que asi puedas poyectar tus oportunidades de crecimiento como empresa y como emprendedor, puedes filtrar por la ubicacion")
 
-# Parámetros de conexión a la base de datos en Railway
+# Parámetros de conexión a la base de datos en Railway o supabase
 @st.cache_resource
 def init_connection():
     try:
         conn = psycopg2.connect(
             #RAILWAY
             #host="autorack.proxy.rlwy.net",
-            #user="postgres",  # Cambia esto según tu configuración
-            #password="rJmaVfPPjUZARaPzwemDoMDvengICOrS",  # Cambia esto según tu configuración
+            #user="postgres",
+            #password="rJmaVfPPjUZARaPzwemDoMDvengICOrS",
             #dbname="railway",
             #port="33601"
             #SUPABASE
             host="aws-0-sa-east-1.pooler.supabase.com",
-            user="postgres.vjlvcapbajjucqxyeaet",  # Cambia esto según tu configuración
-            password="Pureba123paratontos",  # Cambia esto según tu configuración
+            user="postgres.vjlvcapbajjucqxyeaet",
+            password="Pureba123paratontos",
             dbname="postgres",
             port="6543"
             #host="localhost",
-            #user="postgres",  # Cambia esto según tu configuración
-            #password="Danset01*",  # Cambia esto según tu configuración
+            #user="postgres",
+            #password="Danset01*",
             #dbname="hackaton",
             #port="5432"
         )
