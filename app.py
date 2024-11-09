@@ -283,7 +283,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
                     st.write(f"  **Precio Administracion:** {formateado}")
                     #st.markdown(f"<p style='font-size:21px;'><b>Precio administracion: </b>${formateado} COP</p>", unsafe_allow_html=True)
                 if bathrooms!= '[null]':
-                    st.write(f"  **Precio:** {bathrooms}")
+                    st.write(f"  **Baños:** {bathrooms}")
                     #st.markdown(f"<p style='font-size:21px;'><b>Baños: </b>{bathrooms}</p>", unsafe_allow_html=True)
             
             with cols[2]:
@@ -301,7 +301,7 @@ if barrio_seleccionado != "Seleccionar Ubicacion":
             # Mostrar el expander si el estado es True
             if st.session_state.expanders[expander_key]:
                 with st.expander(f"Detalles de {titulo}", expanded=True):
-                    st.write(f"  **Precio:** {contact} COP")
+                    st.write(f"  **Contacto:** {contact}")
                     #st.markdown(f"<p style='font-size:21px;'><b>Contacto:</b> {contact}</p>", unsafe_allow_html=True)
                     
                     if descripcion:
